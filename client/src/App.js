@@ -13,7 +13,7 @@ function App() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const posts = useSelector((state) => state.posts);
+  // const posts = useSelector((state) => state.posts);
 
   useEffect(() => {
     dispatch(getPosts());
@@ -44,7 +44,7 @@ function App() {
           </Grid>
         </Container>
       </Grow>
-      <div>{JSON.stringify(posts)}</div>
+      {/* <div>{JSON.stringify(posts)}</div> */}
     </Container>
   );
 }

@@ -28,12 +28,12 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   // console.log(req.body);
 
-  const { title, message, selectedFiles, creator, tags } = req.body;
+  const { title, message, selectedFile, creator, tags } = req.body;
 
   const newPostMessage = new PostMessage({
     title,
     message,
-    selectedFiles,
+    selectedFile,
     creator,
     tags,
   });
@@ -51,7 +51,7 @@ export const updatePost = async (req, res) => {
 
   const { id } = req.params;
 
-  const { title, message, selectedFiles, creator, tags } = req.body;
+  const { title, message, selectedFile, creator, tags } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with id: ${id}`);
@@ -59,7 +59,7 @@ export const updatePost = async (req, res) => {
   const updatedPost = new PostMessage({
     title,
     message,
-    selectedFiles,
+    selectedFile,
     creator,
     tags,
     _id: id,
@@ -76,21 +76,27 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
 
   await PostMessage.findByIdAndRemove(id);
 
   res.json({ message: "Post deleted successfully." });
-}
+};
 
 export const likePost = async (req, res) => {
   const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-  
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with id: ${id}`);
+
   const post = await PostMessage.findById(id);
 
-  const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
-  
+  const updatedPost = await PostMessage.findByIdAndUpdate(
+    id,
+    { likeCount: post.likeCount + 1 },
+    { new: true }
+  );
+
   res.json(updatedPost);
-}
+};
