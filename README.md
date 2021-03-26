@@ -1,4 +1,4 @@
-# A social media app for creating memories using MERN and Docker.
+# A social media app for creating memories using MERN.
 
 It is a social media app to save your memories by creating post and upluoad the image related to the memories. In addition, other people can also like your memories. Thank you :).
 
